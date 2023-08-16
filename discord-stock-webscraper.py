@@ -7,10 +7,12 @@ from discord_webhook import DiscordWebhook, DiscordEmbed
 
 
 start_time = time.time()
-
-
 header= {'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}
-url= 'https://de.finance.yahoo.com/quote/LAC/'
+
+
+print("Wich stock would you like to monitor?")
+stock = input()
+url= "https://finance.yahoo.com/quote/" + stock
 
 r = requests.get(url, headers=header)
 soup = bs(r.text, 'html.parser')
@@ -46,7 +48,7 @@ while r.status_code == 200:
         
         content=""
         webhook = DiscordWebhook(url='YOUR_WEBHOOK_URL', username="stock_data", content=content)
-        embed = DiscordEmbed(title="Leo Lithium Limited (LLL.AX)", color=242424, url="https://finance.yahoo.com/quote/LLL.AX/")
+        embed = DiscordEmbed(title=soup.title.find, color=242424, url=url)
         embed.set_footer(text="")
         embed.set_timestamp()
         embed.add_embed_field(name="Current", value=price_new, inline=False)
